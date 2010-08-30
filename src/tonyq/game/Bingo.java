@@ -2,21 +2,21 @@ package tonyq.game;
 
 /**
 
- *  ¦p¦³µ{¦¡¤Wªº²¨¥¢ ·Ğ½Ğ³qª¾§ï¶i Msn:q9804.tommy@msa.hinet.net
+ *  å¦‚æœ‰ç¨‹å¼ä¸Šçš„ç–å¤± ç…©è«‹é€šçŸ¥æ”¹é€² Msn:q9804.tommy@msa.hinet.net
  *  power by TonyQ
  *
- *	µ{¦¡¥Øªº:Åı¨Ï¥ÎªÌ»P¹q¸£ª±»«ªG¹CÀ¸¡A
-  * ¹q¸£ªº¤@¤Á°Ê§@¸ò¿ï¸¹§¡¥ÑÀH¾÷²£¥Í¡A¥ı³s¦¨¤­±ø½uªÌ³Ó¡C
+ *	ç¨‹å¼ç›®çš„:è®“ä½¿ç”¨è€…èˆ‡é›»è…¦ç©è³“æœéŠæˆ²ï¼Œ
+  * é›»è…¦çš„ä¸€åˆ‡å‹•ä½œè·Ÿé¸è™Ÿå‡ç”±éš¨æ©Ÿç”¢ç”Ÿï¼Œå…ˆé€£æˆäº”æ¢ç·šè€…å‹ã€‚
  *
  *
- *	½s¿è¬ö¿ı:
- *	2005/01/03 AM 03:35 ¶}©l¼¶¼g
- *	2005/01/03 AM 06;10 §¹¦¨step 1¡B2
- *	2005/01/03 AM 06:40 ¥[¤J Ãi¤H±M¥Î ¦Û°Ê¿ï¸¹ ¥\¯àr¥\¯à µ{¦¡²Ó³¡³W¹º
- *	2005/01/03 AM 07:51 ²q®±¾÷¨î§¹¦¨
- *	2005/01/07~09	»«ªG¹CÀ¸¼Æ¦r³¡¤À¼¶¼g
- *	2005/01/14  »«ªG¹CÀ¸³Ó§QªÌ§PÂ_
- *	2005/01/14  ¥[¤JÆ[¬İ¹q¸£¥H¤Î¨Ï¥ÎªÌªºµ²§ôª¬ªp ¥H¤Î­«·s¶}©l¾÷¨î¡C
+ *	ç·¨è¼¯ç´€éŒ„:
+ *	2005/01/03 AM 03:35 é–‹å§‹æ’°å¯«
+ *	2005/01/03 AM 06;10 å®Œæˆstep 1ã€2
+ *	2005/01/03 AM 06:40 åŠ å…¥ æ‡¶äººå°ˆç”¨ è‡ªå‹•é¸è™Ÿ åŠŸèƒ½råŠŸèƒ½ ç¨‹å¼ç´°éƒ¨è¦åŠƒ
+ *	2005/01/03 AM 07:51 çŒœæ‹³æ©Ÿåˆ¶å®Œæˆ
+ *	2005/01/07~09	è³“æœéŠæˆ²æ•¸å­—éƒ¨åˆ†æ’°å¯«
+ *	2005/01/14  è³“æœéŠæˆ²å‹åˆ©è€…åˆ¤æ–·
+ *	2005/01/14  åŠ å…¥è§€çœ‹é›»è…¦ä»¥åŠä½¿ç”¨è€…çš„çµæŸç‹€æ³ ä»¥åŠé‡æ–°é–‹å§‹æ©Ÿåˆ¶ã€‚
  *  2010/08/31 refactory
  */
 
@@ -40,7 +40,6 @@ class Bingo extends JFrame implements ActionListener {
 	}
 
 	// set Data Members
-	private JButton[] numberButton = new JButton[25];
 	private JButton[] controlButton = new JButton[7];
 	private JButton[] guessButton = new JButton[3];
 
@@ -52,14 +51,11 @@ class Bingo extends JFrame implements ActionListener {
 	private int x[] = { 70, 130, 190, 250, 310 };
 	private int y[] = { 150, 190, 230, 270, 310 };
 	private int step = 0;
-	private int setNumber = 1;
 	private int guessNum[] = { -1, 0 };
 	private int guess = -1;
-	private int ComNum[] = new int[25]; // [¸¹½X] = ¦ì¸m
-	private int UserNum[] = new int[25]; // [number] = location;
-	private int checkNum[] = new int[26];
-	private String guessStr[] = { "°Å¤M", "¥ÛÀY", "¥¬" };
-	private StringBuffer BingoRecord = new StringBuffer("¸¹½X¬ö¿ı°Ï\n");
+
+	private String guessStr[] = { "å‰ªåˆ€", "çŸ³é ­", "å¸ƒ" };
+	private StringBuffer BingoRecord = new StringBuffer("è™Ÿç¢¼ç´€éŒ„å€\n");
 	private String temp = "";
 
 	Container contentPane;
@@ -87,74 +83,48 @@ class Bingo extends JFrame implements ActionListener {
 
 		JButton clickedButton = (JButton) event.getSource();
 
-		// ²Ä¤@­Ó°Ê§@ªºª¬ªp
+		// ç¬¬ä¸€å€‹å‹•ä½œçš„ç‹€æ³
 		if (step == 0) {
 			step++;
 			setNumber();
 
-			// ²Ä¤G¶¥¬q :¿ï¨ú¸¹½X
+			// ç¬¬äºŒéšæ®µ :é¸å–è™Ÿç¢¼
 		} else if (step == 1) {
 
-			ComNum = setRandomNumArray();
 
-			if (clickedButton == controlButton[3]) {
-				UserNum = setRandomNumArray();
-				for (int i = 0; i < 25; i++) {
 
-					pickNumber(numberButton[UserNum[i] - 1]);
-
-				}
-			} else {
-				controlButton[3].setEnabled(false);
-			}
-
-			if (clickedButton == controlButton[2])
-				CancelSetNumber();
-			else if (clickedButton == controlButton[1]) {
-				step++;
-				setNumber = 1;
-				guess();
-			}
-
-			pickNumber(clickedButton);
-
-			if (setNumber == 26) {
-				line.setText("§A¤w«ü©w§¹©Ò¦³¼Æ¦r  ½Ğ«ö ½T©w Ä~Äò  ©Î«ö ¨ú®ø ­«¨Ó");
-				controlButton[1].setEnabled(true);
-			}
-
-			// ²Ä¤T¶¥¬q ²q®±
+			// ç¬¬ä¸‰éšæ®µ çŒœæ‹³
 		} else if (step == 2) {
 
 			for (int i = 0; i < 3; i++) {
 				if (clickedButton == guessButton[i]) {
-					line.setText("§A¿ï¾Ü¤F " + guessButton[i].getText() + "¡A ½T©w¶Ü?");
+					line.setText("ä½ é¸æ“‡äº† " + guessButton[i].getText() + "ï¼Œ ç¢ºå®šå—?");
 					guessNum[0] = i;
 				}
 			}
 
 			if (clickedButton == controlButton[1] && guessNum[0] == -1) {
-				line.setText("§AÁÙ¨S¿ï¾Ü­n¥Xªº®±³á!!! ");
+				line.setText("ä½ é‚„æ²’é¸æ“‡è¦å‡ºçš„æ‹³å–”!!! ");
 			} else if (clickedButton == controlButton[1] && guessNum[0] != -1) {
 				guessNum[1] = (int) (Math.random() * 3);
 
 				if (guessNum[1] == guessNum[0]) {
-					line.setText("¥­¤â ¦A¨Ó¤@¦¸!");
+					line.setText("å¹³æ‰‹ å†ä¾†ä¸€æ¬¡!");
 					guessNum[0] = 0;
 					guessNum[0] = 1;
-				} else if (guessWin(guessNum[0], guessNum[1])) { // ª±®aÄ¹ player
-					line.setText("ª±®a¥X " + guessStr[guessNum[0]] + " ¹q¸£¥X "
-							+ guessStr[guessNum[1]] + " ª±®aÄ¹¤F!!");
+				} else if (guessWin(guessNum[0], guessNum[1])) { // ç©å®¶è´ player
+					line.setText("ç©å®¶å‡º " + guessStr[guessNum[0]] + " é›»è…¦å‡º "
+							+ guessStr[guessNum[1]] + " ç©å®¶è´äº†!!");
 					step++;
-					BingoRecord.append("ª±®a\t¹q¸£\n");
+					BingoRecord.append("ç©å®¶\té›»è…¦\n");
 					guess = 0;
 					BingoStart();
 
-				} else if (!guessWin(guessNum[0], guessNum[1])) { // ª±®a¿é com
-					line.setText("ª±®a¥X " + guessStr[guessNum[0]] + " ¹q¸£¥X "
-							+ guessStr[guessNum[1]] + " ¹q¸£Ä¹¤F!!");
+				} else if (!guessWin(guessNum[0], guessNum[1])) { // ç©å®¶è¼¸ com
+					line.setText("ç©å®¶å‡º " + guessStr[guessNum[0]] + " é›»è…¦å‡º "
+							+ guessStr[guessNum[1]] + " é›»è…¦è´äº†!!");
 					step++;
-					BingoRecord.append("¹q¸£\tª±®a\n");
+					BingoRecord.append("é›»è…¦\tç©å®¶\n");
 					guess = 1;
 					BingoStart();
 
@@ -164,7 +134,7 @@ class Bingo extends JFrame implements ActionListener {
 				}
 			}
 
-			// ²Ä¥|¶¥¬q »«ªG¥D½u
+			// ç¬¬å››éšæ®µ è³“æœä¸»ç·š
 		} else if (step == 3) {
 			// player click
 			ClickNumber(Integer.parseInt(clickedButton.getText()));
@@ -202,14 +172,14 @@ class Bingo extends JFrame implements ActionListener {
 				Bingowin(winner());
 
 			} else if (ConterLine(checkNum, ComNum) >= 3 && tempcheck == -1) {
-				line.setText("§A¥Ø«e³s½uªº¼Æ¶q: " + ConterLine(checkNum, UserNum)
-						+ " ª`·N!! ¹q¸£" + ConterLine(checkNum, ComNum)
-						+ "³s½u¤F³á!!¤p¤ß§O¿é±¼¤F!!");
+				line.setText("ä½ ç›®å‰é€£ç·šçš„æ•¸é‡: " + ConterLine(checkNum, UserNum)
+						+ " æ³¨æ„!! é›»è…¦" + ConterLine(checkNum, ComNum)
+						+ "é€£ç·šäº†å–”!!å°å¿ƒåˆ¥è¼¸æ‰äº†!!");
 			} else if (tempcheck == -1) {
-				line.setText("§A¥Ø«e³s½uªº¼Æ¶q: " + ConterLine(checkNum, UserNum));
+				line.setText("ä½ ç›®å‰é€£ç·šçš„æ•¸é‡: " + ConterLine(checkNum, UserNum));
 			}
 
-			// ²Ä¤­¶¥¬q : ³Ó§Q ©Î ¥¢±Ñ
+			// ç¬¬äº”éšæ®µ : å‹åˆ© æˆ– å¤±æ•—
 		} else if (step == 4) {
 
 			if (clickedButton == controlButton[4]) { // restart
@@ -231,14 +201,14 @@ class Bingo extends JFrame implements ActionListener {
 				showConclusion(ComNum);
 				controlButton[5].setEnabled(false);
 				controlButton[6].setEnabled(true);
-				line.setText(temp + "\t¹q¸£³s½u¼Æ:" + ConterLine(checkNum, ComNum));
+				line.setText(temp + "\té›»è…¦é€£ç·šæ•¸:" + ConterLine(checkNum, ComNum));
 
 			} else if (clickedButton == controlButton[6]) { // Student
 
 				showConclusion(UserNum);
 				controlButton[6].setEnabled(false);
 				controlButton[5].setEnabled(true);
-				line.setText(temp + "\tª±®a³s½u¼Æ:" + ConterLine(checkNum, UserNum));
+				line.setText(temp + "\tç©å®¶é€£ç·šæ•¸:" + ConterLine(checkNum, UserNum));
 			}
 
 		}
@@ -251,11 +221,11 @@ class Bingo extends JFrame implements ActionListener {
 		setNumber = 1;
 		guessNum = new int[] { -1, 0 };
 		guess = -1;
-		ComNum = new int[25]; // [¸¹½X] = ¦ì¸m
+		ComNum = new int[25]; // [è™Ÿç¢¼] = ä½ç½®
 		UserNum = new int[25]; // [number] = location;
 		checkNum = new int[26];
-		guessStr = new String[] { "°Å¤M", "¥ÛÀY", "¥¬" };
-		BingoRecord = new StringBuffer("¸¹½X¬ö¿ı°Ï\n");
+		guessStr = new String[] { "å‰ªåˆ€", "çŸ³é ­", "å¸ƒ" };
+		BingoRecord = new StringBuffer("è™Ÿç¢¼ç´€éŒ„å€\n");
 
 		// Set start button
 		controlButton[0] = new JButton("Start");
@@ -268,7 +238,7 @@ class Bingo extends JFrame implements ActionListener {
 		textArea.setBounds(50, 50, 300, 100);
 		textArea.setEditable(false);
 		textArea
-				.setText("\n\n\n Åwªï§A¨Óª±Bingo¹CÀ¸¡A ¥»¹CÀ¸¥Ñ¤¸´¼¸êºŞ °©ÀY ©Ò¼¶¼g \n ¦pµ{¦¡°õ¦æ¦³°İÃD ½Ğ¦^³ø  Msn:q9804.tommy@msa.hinet.net \n\n\n ½Ğ«ö Start ¶}±Ò!");
+				.setText("\n\n\n æ­¡è¿ä½ ä¾†ç©BingoéŠæˆ²ï¼Œ æœ¬éŠæˆ²ç”±å…ƒæ™ºè³‡ç®¡ éª¨é ­ æ‰€æ’°å¯« \n å¦‚ç¨‹å¼åŸ·è¡Œæœ‰å•é¡Œ è«‹å›å ±  Msn:q9804.tommy@msa.hinet.net \n\n\n è«‹æŒ‰ Start é–‹å•Ÿ!");
 		contentPane.add(textArea);
 
 		// set ActionListener
@@ -280,20 +250,20 @@ class Bingo extends JFrame implements ActionListener {
 		contentPane.remove(controlButton[0]);
 		textArea.setBounds(50, 50, 400, 100);
 		textArea
-				.setText("¹CÀ¸¶}©lÅo¡I²{¦b½Ğ°t¸m§Aªº¸¹½X \n(«ö¬Û¹ïÀ³ªº¦ì¸m´N·|¦Û°Ê°t¸m¤F  ¦p¤£º¡·N¥i«ö¨ú®ø ­«·s°t¸m) \n¦Û°Ê¬D¿ï¥\¯à¥iÀH¾÷°t¸m25­Ó¼Æ¦r °t¸m§¹¤£º¡·N ¤´¥i«ö ¨ú®ø ¦A­«·s°t¸m");
+				.setText("éŠæˆ²é–‹å§‹å›‰ï¼ç¾åœ¨è«‹é…ç½®ä½ çš„è™Ÿç¢¼ \n(æŒ‰ç›¸å°æ‡‰çš„ä½ç½®å°±æœƒè‡ªå‹•é…ç½®äº†  å¦‚ä¸æ»¿æ„å¯æŒ‰å–æ¶ˆ é‡æ–°é…ç½®) \nè‡ªå‹•æŒ‘é¸åŠŸèƒ½å¯éš¨æ©Ÿé…ç½®25å€‹æ•¸å­— é…ç½®å®Œä¸æ»¿æ„ ä»å¯æŒ‰ å–æ¶ˆ å†é‡æ–°é…ç½®");
 
-		controlButton[1] = new JButton("½T©w");
+		controlButton[1] = new JButton("ç¢ºå®š");
 		controlButton[1].setBounds(140, 400, BUTTON_WIDTH, BUTTON_HEIGHT);
 		controlButton[1].setEnabled(false);
 		controlButton[1].addActionListener(this);
 		contentPane.add(controlButton[1]);
 
-		controlButton[2] = new JButton("¨ú®ø");
+		controlButton[2] = new JButton("å–æ¶ˆ");
 		controlButton[2].setBounds(250, 400, BUTTON_WIDTH, BUTTON_HEIGHT);
 		controlButton[2].addActionListener(this);
 		contentPane.add(controlButton[2]);
 
-		controlButton[3] = new JButton("¦Û°Ê¬D¿ï");
+		controlButton[3] = new JButton("è‡ªå‹•æŒ‘é¸");
 		controlButton[3].setBounds(400, 400, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
 		controlButton[3].addActionListener(this);
 		contentPane.add(controlButton[3]);
@@ -309,66 +279,16 @@ class Bingo extends JFrame implements ActionListener {
 		line = new JTextField();
 		line.setBounds(70, 350, 300, 30);
 		line.setEditable(false);
-		line.setText(" §A¥¿­n«ü©wªº¼Æ¦r:1 \t ÁÙ¦³25­Ó¼Æ¦r«İ«ü©w ");
+		line.setText(" ä½ æ­£è¦æŒ‡å®šçš„æ•¸å­—:1 \t é‚„æœ‰25å€‹æ•¸å­—å¾…æŒ‡å®š ");
 		contentPane.add(line);
 
 		contentPane.repaint();
 
 	}
 
-	private int[] setRandomNumArray() {
 
-		int[] check = new int[25];
-		int[] com = new int[25];
 
-		for (int i = 0; i < 25; i++) {
 
-			int number = (int) (Math.random() * 25) + 1;
-
-			while (check[number - 1] != 0) {
-				number = (int) (Math.random() * 25) + 1;
-			}
-
-			com[i] = number;
-			check[number - 1] = 1;
-
-		}
-
-		return com;
-
-	}
-
-	private void CancelSetNumber() {
-
-		for (int i = 0; i < 25; i++) {
-			numberButton[i].setText("");
-			numberButton[i].setEnabled(true);
-			UserNum[i] = 0;
-		}
-		controlButton[1].setEnabled(false);
-		controlButton[3].setEnabled(true);
-
-		line.setText("§A³\®ø¤F¤§«e«ü©wªº¼Æ¦r §A¥¿­n«ü©wªº¼Æ¦r:1 \t ÁÙ¦³25­Ó¼Æ¦r«İ«ü©w ");
-
-		setNumber = 1;
-
-	}
-
-	private void pickNumber(JButton clickedButton) {
-
-		for (int i = 0; i < 25; i++) {
-			if (clickedButton == numberButton[i]) {
-				numberButton[i].setText("" + setNumber);
-				numberButton[i].setEnabled(false);
-				UserNum[setNumber - 1] = i + 1;
-				setNumber++;
-				line.setText(" §A¥¿­n«ü©wªº¼Æ¦r: " + setNumber + " \t ÁÙ¦³ "
-						+ (26 - setNumber) + " ­Ó¼Æ¦r«İ«ü©w ");
-
-			}
-		}
-
-	}
 
 	private void NumberButtionAction(int k) { // 0 - remove 1 - add
 
@@ -386,7 +306,7 @@ class Bingo extends JFrame implements ActionListener {
 		NumberButtionAction(0);
 		contentPane.remove(controlButton[2]);
 		contentPane.remove(controlButton[3]);
-		textArea.setText("\n²{¦b»P¹q¸£²q®±¨M©w¥ı«á¶¶§Ç!\n½Ğ¿ï¾Ü °Å¤M ¥ÛÀY ©Î¥¬ ¡A¿ï¾Ü§¹«á«ö½T©w");
+		textArea.setText("\nç¾åœ¨èˆ‡é›»è…¦çŒœæ‹³æ±ºå®šå…ˆå¾Œé †åº!\nè«‹é¸æ“‡ å‰ªåˆ€ çŸ³é ­ æˆ–å¸ƒ ï¼Œé¸æ“‡å®Œå¾ŒæŒ‰ç¢ºå®š");
 		line.setText("");
 
 		for (int i = 0; i < 3; i++) {
@@ -429,7 +349,7 @@ class Bingo extends JFrame implements ActionListener {
 		NumberButtionAction(1);
 
 		controlButton[1].setEnabled(false);
-		textArea.setText("²{¦b¶i¦æ»«ªG¹CÀ¸¡A½Ğ¿ï¨ú±ı¿ï¨úªº¸¹½X \n¥ı³s¦¨¤­±ø½uªº¤H´NÄ¹Åo!!!");
+		textArea.setText("ç¾åœ¨é€²è¡Œè³“æœéŠæˆ²ï¼Œè«‹é¸å–æ¬²é¸å–çš„è™Ÿç¢¼ \nå…ˆé€£æˆäº”æ¢ç·šçš„äººå°±è´å›‰!!!");
 		contentPane.repaint();
 	}
 
@@ -527,36 +447,36 @@ class Bingo extends JFrame implements ActionListener {
 
 	private void Bingowin(String winner) {
 
-		controlButton[4] = new JButton("­«·s¶}©l");
+		controlButton[4] = new JButton("é‡æ–°é–‹å§‹");
 		controlButton[4].setBounds(70, 400, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
 		controlButton[4].addActionListener(this);
 		contentPane.add(controlButton[4]);
 
-		controlButton[5] = new JButton("Åã¥Ü¹q¸£ª¬ªp");
+		controlButton[5] = new JButton("é¡¯ç¤ºé›»è…¦ç‹€æ³");
 		controlButton[5].setBounds(200, 400, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
 		controlButton[5].addActionListener(this);
 		contentPane.add(controlButton[5]);
 
-		controlButton[6] = new JButton("Åã¥Üª±®aª¬ªp");
+		controlButton[6] = new JButton("é¡¯ç¤ºç©å®¶ç‹€æ³");
 		controlButton[6].setBounds(330, 400, BUTTON_WIDTH * 2, BUTTON_HEIGHT);
 		controlButton[6].setEnabled(false);
 		controlButton[6].addActionListener(this);
 		contentPane.add(controlButton[6]);
 
 		if (winner.equals("User")) {
-			temp = "®¥³ß!!! §AÄ¹¤F!!!!^___^";
+			temp = "æ­å–œ!!! ä½ è´äº†!!!!^___^";
 			line.setText(temp);
 		} else if (winner.equals("Com")) {
-			temp = "«¢«¢«¢ ¹q¸£Ä¹¤F!!!!^_____________^!!";
+			temp = "å“ˆå“ˆå“ˆ é›»è…¦è´äº†!!!!^_____________^!!";
 			line.setText(temp);
 
 		} else if (winner.equals("deuce")) {
-			temp = "¨âÃä¦P®É³£¹F¨ì©Î¶W¹L¤­±ø½u ¥­¤â^________^llb";
+			temp = "å…©é‚ŠåŒæ™‚éƒ½é”åˆ°æˆ–è¶…éäº”æ¢ç·š å¹³æ‰‹^________^llb";
 			line.setText(temp);
 		}
 
 		textArea
-				.setText("¹CÀ¸µ²§ô¤F¡A\n²{¦b§A¥i¥H¿ï¾ÜÆ[¬İª±®aµ²§ô®Éª¬ºA©Î¹q¸£µ²§ô®Éª¬ºA¡A\n©ÎªÌ«ö[­«·s¶}©l]¶i¦æ¤@­Ó·s¹CÀ¸ ");
+				.setText("éŠæˆ²çµæŸäº†ï¼Œ\nç¾åœ¨ä½ å¯ä»¥é¸æ“‡è§€çœ‹ç©å®¶çµæŸæ™‚ç‹€æ…‹æˆ–é›»è…¦çµæŸæ™‚ç‹€æ…‹ï¼Œ\næˆ–è€…æŒ‰[é‡æ–°é–‹å§‹]é€²è¡Œä¸€å€‹æ–°éŠæˆ² ");
 
 		contentPane.repaint();
 
