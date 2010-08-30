@@ -40,7 +40,6 @@ class Bingo extends JFrame implements ActionListener {
 	}
 
 	// set Data Members
-	private JButton[] numberButton = new JButton[25];
 	private JButton[] controlButton = new JButton[7];
 	private JButton[] guessButton = new JButton[3];
 
@@ -52,12 +51,9 @@ class Bingo extends JFrame implements ActionListener {
 	private int x[] = { 70, 130, 190, 250, 310 };
 	private int y[] = { 150, 190, 230, 270, 310 };
 	private int step = 0;
-	private int setNumber = 1;
 	private int guessNum[] = { -1, 0 };
 	private int guess = -1;
-	private int ComNum[] = new int[25]; // [號碼] = 位置
-	private int UserNum[] = new int[25]; // [number] = location;
-	private int checkNum[] = new int[26];
+
 	private String guessStr[] = { "剪刀", "石頭", "布" };
 	private StringBuffer BingoRecord = new StringBuffer("號碼紀錄區\n");
 	private String temp = "";
@@ -95,33 +91,7 @@ class Bingo extends JFrame implements ActionListener {
 			// 第二階段 :選取號碼
 		} else if (step == 1) {
 
-			ComNum = setRandomNumArray();
 
-			if (clickedButton == controlButton[3]) {
-				UserNum = setRandomNumArray();
-				for (int i = 0; i < 25; i++) {
-
-					pickNumber(numberButton[UserNum[i] - 1]);
-
-				}
-			} else {
-				controlButton[3].setEnabled(false);
-			}
-
-			if (clickedButton == controlButton[2])
-				CancelSetNumber();
-			else if (clickedButton == controlButton[1]) {
-				step++;
-				setNumber = 1;
-				guess();
-			}
-
-			pickNumber(clickedButton);
-
-			if (setNumber == 26) {
-				line.setText("你已指定完所有數字  請按 確定 繼續  或按 取消 重來");
-				controlButton[1].setEnabled(true);
-			}
 
 			// 第三階段 猜拳
 		} else if (step == 2) {
@@ -316,59 +286,9 @@ class Bingo extends JFrame implements ActionListener {
 
 	}
 
-	private int[] setRandomNumArray() {
 
-		int[] check = new int[25];
-		int[] com = new int[25];
 
-		for (int i = 0; i < 25; i++) {
 
-			int number = (int) (Math.random() * 25) + 1;
-
-			while (check[number - 1] != 0) {
-				number = (int) (Math.random() * 25) + 1;
-			}
-
-			com[i] = number;
-			check[number - 1] = 1;
-
-		}
-
-		return com;
-
-	}
-
-	private void CancelSetNumber() {
-
-		for (int i = 0; i < 25; i++) {
-			numberButton[i].setText("");
-			numberButton[i].setEnabled(true);
-			UserNum[i] = 0;
-		}
-		controlButton[1].setEnabled(false);
-		controlButton[3].setEnabled(true);
-
-		line.setText("你許消了之前指定的數字 你正要指定的數字:1 \t 還有25個數字待指定 ");
-
-		setNumber = 1;
-
-	}
-
-	private void pickNumber(JButton clickedButton) {
-
-		for (int i = 0; i < 25; i++) {
-			if (clickedButton == numberButton[i]) {
-				numberButton[i].setText("" + setNumber);
-				numberButton[i].setEnabled(false);
-				UserNum[setNumber - 1] = i + 1;
-				setNumber++;
-				line.setText(" 你正要指定的數字: " + setNumber + " \t 還有 "
-						+ (26 - setNumber) + " 個數字待指定 ");
-
-			}
-		}
-
-	}
 
 	private void NumberButtionAction(int k) { // 0 - remove 1 - add
 
